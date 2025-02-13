@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MarketplaceController">
+
+   <children>
+      <Hyperlink layoutY="-60.0" prefHeight="60.0" prefWidth="320.0" text="Marketplace">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Hyperlink>
+      <AnchorPane layoutX="336.0" layoutY="-60.0" prefHeight="60.0" prefWidth="1280.0" style="-fx-background-color: F5F7FA; -fx-background-radius: 16 16 16 16; -fx-border-radius: 16 16 16 16; -fx-border-color: #0088C8; -fx-border-width: 1;" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="536.0" layoutY="4.0" prefWidth="267.0" AnchorPane.leftAnchor="536.0" AnchorPane.rightAnchor="536.0">
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Circle fill="WHITE" layoutX="40.0" layoutY="32.0" radius="24.0" stroke="#0088c8" strokeWidth="3.0" style="-fx-background-image: url(&quot;img/placeholder/user.jpg&quot;); -fx-background-size: 100% 100%;" AnchorPane.leftAnchor="14.5" />
+            <ImageView fx:id="memberImage" fitHeight="48.0" fitWidth="48.0" layoutX="16.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="16.0">
+               <image>
+                  <Image url="@img/placeholder/user.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="profileName" layoutX="66.0" prefHeight="60.0" prefWidth="320.0" text="{USERNAME}" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="16.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER" layoutX="1012.0" layoutY="7.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
+               <children>
+                  <Label fx:id="profileBalance" alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="113.0" text="{WI_POINTS}" textAlignment="CENTER" textFill="#0088c8">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/ico/coin.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="60.0" prefHeight="618.0" prefWidth="260.0" style="-fx-background-color: F5F7FA; -fx-border-radius: 16 16 16 16; -fx-background-radius: 16 16 16 16; -fx-border-color: #0088C8; -fx-border-width: 1;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="88.0">
+         <children>
+            <VBox layoutX="1.0" layoutY="12.0" spacing="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="12.0">
+               <children>
+                  <HBox alignment="CENTER" prefWidth="260.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/ico/marketplace.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink onAction="#onMarketplaceClicked" prefHeight="60.0" prefWidth="320.0" text="Marketplace" visited="true">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Hyperlink>
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="260.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/ico/wishlist.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink onAction="#onWishlistClicked" prefHeight="60.0" prefWidth="320.0" text="Wishlist">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="260.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/ico/friends.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink onAction="#onFriendsClicked" prefHeight="60.0" prefWidth="320.0" text="Friends">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="260.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/ico/friendrequests.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink onAction="#onFriendRequestsClicked" prefHeight="60.0" prefWidth="320.0" text="Friend Requests">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="260.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/ico/wallet.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink onAction="#onWalletClicked" prefHeight="60.0" prefWidth="320.0" text="Wallet">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="260.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/ico/notifications.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink onAction="#onNotificationsClicked" prefHeight="60.0" prefWidth="320.0" text="Notifications">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                     </children>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" layoutY="581.0" prefWidth="260.0" AnchorPane.bottomAnchor="14.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/ico/signout.png" />
+                     </image>
+                  </ImageView>
+                  <Hyperlink onAction="#onSignOutClicked" prefHeight="60.0" prefWidth="320.0" text="Sign Out">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Hyperlink>
+               </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="290.0" layoutY="88.0" prefHeight="618.0" prefWidth="983.0" style="-fx-background-color: F5F7FA; -fx-border-radius: 16 16 16 16; -fx-background-radius: 16 16 16 16; -fx-border-color: #0088C8; -fx-border-width: 1;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="88.0">
+         <children>
+            <ScrollPane fitToWidth="true" layoutX="16.0" layoutY="39.0" prefHeight="565.0" prefWidth="946.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="44.0">
+               <content>
+                  <VBox fx:id="cardContainer" alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="8.0" style="-fx-background-color: F5F7FA;">
+                     <padding>
+                        <Insets right="4.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <Label fx:id="itemsCount" layoutX="16.0" layoutY="14.0" text="Available items ({COUNT}) to add to your wishlist:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

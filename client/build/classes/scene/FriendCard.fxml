@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="938.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-radius: 50;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendCardController">
+   <children>
+      <Label fx:id="memberName" layoutX="88.0" layoutY="15.0" prefHeight="32.0" prefWidth="618.0" text="{FRIENDNAME}" wrapText="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+      </Label>
+      <Button fx:id="showButton" layoutX="818.0" layoutY="25.0" mnemonicParsing="false" onAction="#onShowProfile" prefHeight="32.0" prefWidth="104.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" text="Show Profile" AnchorPane.rightAnchor="24.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="actionButton" layoutX="698.0" layoutY="25.0" mnemonicParsing="false" onAction="#onActionClicked" prefHeight="32.0" prefWidth="104.0" style="-fx-background-radius: 30; -fx-border-radius: 30;" text="Remove" textFill="RED" AnchorPane.rightAnchor="142.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="memberDob" layoutX="94.0" layoutY="43.0" prefHeight="0.0" prefWidth="618.0" text="yyyy-MM-dd" textFill="GREY" wrapText="true" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="257.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+      </Label>
+      <ImageView fx:id="cardImage" cache="true" cacheHint="SCALE" fitHeight="52.0" fitWidth="52.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="16.0">
+         <image>
+            <Image url="@img/placeholder/user.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
