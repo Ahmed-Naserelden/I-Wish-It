@@ -22,26 +22,40 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller class for the friends view.
+ * Handles the initialization and display of friends and adding new friends.
+ */
 public class FriendsController extends MainController implements Initializable {
 
     @FXML
-    private VBox cardContainer;
+    private VBox cardContainer; // Container for displaying friend cards
     @FXML
-    private Label itemsCount;
+    private Label itemsCount; // Label for displaying the count of friends
     @FXML
-    private TextField friendEmail;
+    private TextField friendEmail; // TextField for entering a friend's email
 
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
 
+        // Send request to get the friends list for the current member
         NetworkManager.send(new Request("GET", "/api/friends", DataStore.getMember().getId()));
         Response response = NetworkManager.receive();
         ArrayList<FriendPayload> friends = (ArrayList<FriendPayload>) response.getPayload();
 
+        // Update the items count label with the number of friends
         itemsCount.setText("You have (" + friends.size() + ") friends:");
 
         try {
+            // Load and display each friend card
             for (FriendPayload friend : friends) {
                 FXMLLoader loader = new FXMLLoader(
                         SceneSwitcher.class.getResource("/scene/FriendCard.fxml")
@@ -57,8 +71,14 @@ public class FriendsController extends MainController implements Initializable {
         }
     }
 
+    /**
+     * Handles the event when the "Add Friend" button is clicked.
+     * Sends a request to add a new friend and updates the view accordingly.
+     *
+     * @param event The action event triggered by clicking the button.
+     */
     @FXML
-    private void onFriendAddClicked(ActionEvent event) {
+    private void onFriendAddClicked(ActionEvent event) { //send friend request
         NetworkManager.send(
                 new Request("POST", "/api/friends",
                         new FriendActionPayload(
