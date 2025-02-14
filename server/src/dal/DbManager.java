@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import server.Server;
 
+/**
+ * DbManager class to manage database connections and operations.
+ * Handles opening and closing connections, and preparing SQL statements.
+ */
 public class DbManager {
 
     private static final String DB_URL = "jdbc:derby://localhost:1527/dbn45contacts";
@@ -14,6 +18,10 @@ public class DbManager {
 
     private static Connection conn;
 
+    /**
+     * Opens a connection to the database.
+     * Initializes the connection using the specified URL, username, and password.
+     */
     public static void openConnection() {
         try {
             conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
@@ -28,14 +36,26 @@ public class DbManager {
         }
     }
 
+    /**
+     * Closes the connection to the database.
+     */
     public static void closeConnection() {
         try {
-            conn.close();
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
         } catch (SQLException e) {
             Server.logFail(e.getMessage());
         }
     }
 
+    /**
+     * Prepares an SQL statement for execution.
+     *
+     * @param query The SQL query to prepare.
+     * @return A PreparedStatement object for executing the query.
+     * @throws SQLException If an SQL error occurs while preparing the statement.
+     */
     public static PreparedStatement prepareStatement(String query) throws SQLException {
         return conn.prepareStatement(query);
     }

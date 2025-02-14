@@ -5,7 +5,6 @@ import client.DataStore;
 import client.SceneSwitcher;
 import connection.NetworkManager;
 import connection.NotificationPayload;
-import connection.ProductPayload;
 import connection.Request;
 import connection.Response;
 import java.io.IOException;
@@ -19,19 +18,31 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller class for the notifications view.
+ * Handles the initialization and display of notifications.
+ */
 public class NotificationsController extends MainController implements Initializable {
 
     @FXML
-    private VBox container;
+    private VBox container; // Container for displaying notification cards
     @FXML
-    private Label text;
+    private Label text; // Label for displaying the count of notifications
 
-    private int count = 0;
+    private int count = 0; // Count of notifications
 
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
 
+        // Send request to get the notifications for the current member
         NetworkManager.send(new Request("GET", "/api/notification", DataStore.getMember().getId()));
         Response response = NetworkManager.receive();
 
@@ -39,6 +50,7 @@ public class NotificationsController extends MainController implements Initializ
         setCount(notifications.size());
 
         try {
+            // Load and display each notification card
             for (NotificationPayload notification : notifications) {
                 FXMLLoader loader = new FXMLLoader(
                         SceneSwitcher.class.getResource("/scene/NotificationCard.fxml")
@@ -54,11 +66,19 @@ public class NotificationsController extends MainController implements Initializ
         }
     }
 
+    /**
+     * Sets the count of notifications and updates the label.
+     *
+     * @param new_count The new count of notifications.
+     */
     private void setCount(int new_count) {
         count = new_count;
         text.setText("You have (" + count + ") notifications:");
     }
 
+    /**
+     * Decrements the count of notifications by one.
+     */
     public void decrementCount() {
         setCount(count - 1);
     }

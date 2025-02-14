@@ -21,18 +21,29 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import connection.ProductPayload;
 
+/**
+ * Controller class for the wishlist view.
+ * Handles the initialization and display of wishlist items.
+ */
 public class WishlistController extends MainController implements Initializable {
 
     @FXML
-    private VBox cardContainer;
+    private VBox cardContainer; // Container for displaying wishlist cards
     @FXML
-    private Label wishlistDob;
+    private Label wishlistDob; // Label for displaying the member's date of birth
     @FXML
-    private Label wishlistText;
+    private Label wishlistText; // Label for displaying the wishlist text
 
-    private String name;
-    private int count;
+    private String name; // Name of the member
+    private int count; // Count of wishlist items
 
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
@@ -67,15 +78,29 @@ public class WishlistController extends MainController implements Initializable 
         }
     }
 
+    /**
+     * Sets the count of wishlist items and updates the wishlist text label.
+     *
+     * @param new_count The new count of wishlist items.
+     */
     private void setCount(int new_count) {
         count = new_count;
         wishlistText.setText(name + " has (" + count + ") items in their wishlist");
     }
 
+    /**
+     * Decrements the count of wishlist items by one.
+     */
     public void decrementCount() {
         setCount(count - 1);
     }
 
+    /**
+     * Calculates the number of days until the next birthday.
+     *
+     * @param isoDate The date of birth in ISO format (e.g., "2000-02-15").
+     * @return The number of days until the next birthday.
+     */
     public static int daysUntilBirthday(String isoDate) {
         // Parse the ISO date string (e.g., "2000-02-15")
         LocalDate birthDate = LocalDate.parse(isoDate, DateTimeFormatter.ISO_LOCAL_DATE);

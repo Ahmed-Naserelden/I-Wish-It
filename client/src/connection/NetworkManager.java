@@ -6,6 +6,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * NetworkManager class to manage network connections and communication.
+ * Handles opening and closing connections, sending requests, and receiving responses.
+ */
 public class NetworkManager {
 
     private static final String HOSTNAME = "localhost";
@@ -15,6 +19,10 @@ public class NetworkManager {
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
 
+    /**
+     * Opens a connection to the server.
+     * Initializes the socket, output stream, and input stream.
+     */
     public static void openConnection() {
         try {
             socket = new Socket(HOSTNAME, PORT);
@@ -28,6 +36,10 @@ public class NetworkManager {
         }
     }
 
+    /**
+     * Closes the connection to the server.
+     * Closes the output stream, input stream, and socket.
+     */
     public static void closeConnection() {
         try {
             if (out != null) {
@@ -45,14 +57,30 @@ public class NetworkManager {
         }
     }
 
+    /**
+     * Gets the input stream for reading objects from the server.
+     *
+     * @return The input stream for reading objects from the server.
+     */
     public static ObjectInputStream getIn() {
         return in;
     }
 
+    /**
+     * Gets the output stream for writing objects to the server.
+     *
+     * @return The output stream for writing objects to the server.
+     */
     public static ObjectOutputStream getOut() {
         return out;
     }
 
+    /**
+     * Sends a request to the server.
+     *
+     * @param request The request to send.
+     * @return True if the request was sent successfully, false otherwise.
+     */
     public static boolean send(Request request) {
         try {
             out.writeObject(request);
@@ -64,6 +92,11 @@ public class NetworkManager {
         }
     }
 
+    /**
+     * Receives a response from the server.
+     *
+     * @return The response received from the server.
+     */
     public static Response receive() {
         try {
             Response response = (Response) in.readObject();

@@ -78,7 +78,7 @@ public class FriendsController extends MainController implements Initializable {
      * @param event The action event triggered by clicking the button.
      */
     @FXML
-    private void onFriendAddClicked(ActionEvent event) { //send friend request
+    private void onFriendAddClicked(ActionEvent event) {
         NetworkManager.send(
                 new Request("POST", "/api/friends",
                         new FriendActionPayload(

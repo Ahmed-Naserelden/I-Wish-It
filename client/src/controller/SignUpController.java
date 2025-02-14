@@ -13,28 +13,41 @@ import connection.NetworkManager;
 import connection.Response;
 import connection.SignUpPayload;
 
+/**
+ * Controller class for the sign-up view.
+ * Handles user interactions and sign-up actions.
+ */
 public class SignUpController {
 
     @FXML
-    private TextField firstNameField;
+    private TextField firstNameField; // TextField for entering the first name
     @FXML
-    private TextField lastNameField;
+    private TextField lastNameField; // TextField for entering the last name
     @FXML
-    private TextField emailField;
+    private TextField emailField; // TextField for entering the email
     @FXML
-    private DatePicker dobField;
+    private DatePicker dobField; // DatePicker for entering the date of birth
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordField; // PasswordField for entering the password
     @FXML
-    private PasswordField reenterPasswordField;
+    private PasswordField reenterPasswordField; // PasswordField for re-entering the password
     @FXML
-    private Button signUpButton;
+    private Button signUpButton; // Button for triggering the sign-up action
 
+    /**
+     * Handles the action event triggered by clicking the sign-up button.
+     *
+     * @param event The action event triggered by clicking the button.
+     */
     @FXML
     private void handleAction(ActionEvent event) {
         doAction();
     }
 
+    /**
+     * Performs the sign-up action.
+     * Validates the input fields and sends a sign-up request to the server.
+     */
     public void doAction() {
         String email = emailField.getText().trim();
         String firstName = firstNameField.getText().trim();
@@ -82,6 +95,10 @@ public class SignUpController {
         signUpButton.setDisable(false);
     }
 
+    /**
+     * Handles the action event triggered by clicking the cancel button.
+     * Switches the scene to the sign-in view.
+     */
     @FXML
     private void handleCancelButtonAction() {
         SceneSwitcher.switchScene("/scene/SignIn.fxml");

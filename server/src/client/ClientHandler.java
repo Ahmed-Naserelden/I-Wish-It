@@ -14,22 +14,39 @@ import connection.ContributionPayload;
 import server.Server;
 import service.*;
 
+/**
+ * ClientHandler class to manage client connections and handle requests.
+ * Extends the Thread class to handle each client connection in a separate thread.
+ */
 public class ClientHandler extends Thread {
 
     public static ArrayList<ClientHandler> handlers = new ArrayList<>();
     NetworkManager networkManager;
 
+    /**
+     * Closes the client connection and removes the handler from the list.
+     */
     private void closeClientConnection() {
         networkManager.closeConnection();
         ClientHandler.handlers.remove(this);
     }
 
+    /**
+     * Constructs a new ClientHandler with the specified socket.
+     * Initializes the NetworkManager and adds the handler to the list.
+     *
+     * @param socket The socket for the client connection.
+     */
     public ClientHandler(Socket socket) {
         networkManager = new NetworkManager(socket);
         Server.logInfo(networkManager.getPort() + " is established.");
         ClientHandler.handlers.add(this);
     }
 
+    /**
+     * Runs the client handler thread.
+     * Continuously listens for client requests and handles them accordingly.
+     */
     @Override
     public void run() {
         while (true) {
@@ -89,12 +106,25 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles client disconnect request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     */
     public void handleClientDisconnect(String method, Object payload) {
         networkManager.send(new Response(true));
         Server.logInfo(networkManager.getPort() + " has disconnected.");
         closeClientConnection();
     }
 
+    /**
+     * Handles sign-in request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the sign-in status and user details.
+     */
     public Response handleSignIn(String method, Object payload) {
         switch (method) {
             case "POST":
@@ -105,6 +135,13 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles sign-up request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the sign-up status.
+     */
     public Response handleSignUp(String method, Object payload) {
         switch (method) {
             case "POST":
@@ -115,6 +152,13 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles contribution request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the status of the contribution.
+     */
     public Response handleContribution(String method, Object payload) {
         switch (method) {
             case "POST":
@@ -125,6 +169,13 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles marketplace request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the list of products in the marketplace.
+     */
     public Response handleMarketplace(String method, Object payload) {
         switch (method) {
             case "GET":
@@ -135,20 +186,34 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles wishlist request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the status of the wishlist operation.
+     */
     public Response handleWishlist(String method, Object payload) {
         switch (method) {
             case "GET":
-                return WishlistService.get((int) payload);
+                return WishlistService.getWishlist((int) payload);
             case "POST":
-                return WishlistService.add((WishlistPayload) payload);
+                return WishlistService.addToWishlist((WishlistPayload) payload);
             case "DELETE":
-                return WishlistService.delete((WishlistPayload) payload);
+                return WishlistService.deleteFromWishlist((WishlistPayload) payload);
             default:
                 Server.logFail("Invalid method for wishlist.");
                 return new Response(false);
         }
     }
 
+    /**
+     * Handles friends request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the status of the friends operation.
+     */
     public Response handleFriends(String method, Object payload) {
         switch (method) {
             case "GET":
@@ -163,6 +228,13 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles friend requests.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the status of the friend request operation.
+     */
     public Response handleFriendRequests(String method, Object payload) {
         switch (method) {
             case "GET":
@@ -177,6 +249,13 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles recharge request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the status of the recharge operation.
+     */
     public Response handleRecharge(String method, Object payload) {
         switch (method) {
             case "GET":
@@ -189,12 +268,19 @@ public class ClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles notification request.
+     *
+     * @param method The HTTP method of the request.
+     * @param payload The payload of the request.
+     * @return A Response object containing the status of the notification operation.
+     */
     public Response handleNotification(String method, Object payload) {
         switch (method) {
             case "GET":
-                return NotificationService.get((int) payload);
+                return NotificationService.getNotifications((int) payload);
             case "DELETE":
-                return NotificationService.delete((int) payload);
+                return NotificationService.deleteNotification((int) payload);
             default:
                 Server.logFail("Invalid method for notifications.");
                 return new Response(false);

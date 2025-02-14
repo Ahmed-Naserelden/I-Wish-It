@@ -22,39 +22,54 @@ import javafx.scene.layout.AnchorPane;
 import connection.ContributionPayload;
 import connection.ProductPayload;
 
+/**
+ * Controller class for the wishlist card view.
+ * Handles the display and actions for individual wishlist cards.
+ */
 public class WishlistCardController implements Initializable {
 
     Runnable decrementCount;
 
     @FXML
-    private AnchorPane parent;
+    private AnchorPane parent; // Parent container for the card
     @FXML
-    private ImageView cardImage;
+    private ImageView cardImage; // ImageView for displaying the product image
     @FXML
-    private Label cardName;
+    private Label cardName; // Label for displaying the product name
     @FXML
-    private ProgressBar cardProgress;
+    private ProgressBar cardProgress; // ProgressBar for displaying the contribution progress
     @FXML
-    private Label cardPrice;
+    private Label cardPrice; // Label for displaying the product price
     @FXML
-    private Label cardBrand;
+    private Label cardBrand; // Label for displaying the product brand
     @FXML
-    private Label cardDesc;
+    private Label cardDesc; // Label for displaying the product description
     @FXML
-    private Button cardAction;
+    private Button cardAction; // Button for performing actions (e.g., Add, Remove, Contribute)
     @FXML
-    private Label contributionText;
+    private Label contributionText; // Label for displaying the contribution text
 
-    private int productId;
-    private int productPrice;
-    private int contribution;
-    private String cardType;
+    private int productId; // ID of the product
+    private int productPrice; // Price of the product
+    private int contribution; // Contribution amount
+    private String cardType; // Type of the card (e.g., WISH, SKIP, SANTA)
 
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
+    /**
+     * Sets the type of the card and updates the UI accordingly.
+     *
+     * @param type The type of the card (e.g., WISH, SKIP, SANTA).
+     */
     public void setCardType(String type) {
         this.cardType = type;
 
@@ -84,6 +99,9 @@ public class WishlistCardController implements Initializable {
         updateContribution();
     }
 
+    /**
+     * Updates the contribution progress and UI elements.
+     */
     private void updateContribution() {
         NumberFormat formatter = NumberFormat.getInstance();
         String price = formatter.format(productPrice);
@@ -107,6 +125,11 @@ public class WishlistCardController implements Initializable {
         }
     }
 
+    /**
+     * Sets the product data and updates the UI with the product's information.
+     *
+     * @param product The ProductPayload object containing the product's information.
+     */
     public void setProductData(ProductPayload product) {
         productId = product.getProductID();
         productPrice = product.getPrice();
@@ -118,6 +141,9 @@ public class WishlistCardController implements Initializable {
         contribution = product.getContribution();
     }
 
+    /**
+     * Adds the item to the wishlist.
+     */
     private void AddItemAction() {
         WishlistPayload wishlistPayload = new WishlistPayload(DataStore.getMember().getId(), productId);
         NetworkManager.send(new Request("POST", "/api/wishlist", wishlistPayload));
@@ -134,6 +160,9 @@ public class WishlistCardController implements Initializable {
         }
     }
 
+    /**
+     * Removes the item from the wishlist.
+     */
     private void removeItemAction() {
         WishlistPayload wishlistPayload = new WishlistPayload(DataStore.getMember().getId(), productId);
         NetworkManager.send(new Request("DELETE", "/api/wishlist", wishlistPayload));
@@ -151,6 +180,9 @@ public class WishlistCardController implements Initializable {
         }
     }
 
+    /**
+     * Handles the contribution action.
+     */
     private void contributeAction() {
         int fromMemberId = DataStore.getMember().getId();
         int toMemberId = DataStore.getEffectiveMemberId();
@@ -173,6 +205,11 @@ public class WishlistCardController implements Initializable {
         }
     }
 
+    /**
+     * Handles the action button click event.
+     *
+     * @param event The action event triggered by clicking the button.
+     */
     @FXML
     private void onAction(ActionEvent event) {
         switch (this.cardType) {
@@ -190,20 +227,38 @@ public class WishlistCardController implements Initializable {
         updateContribution();
     }
 
+    /**
+     * Handles the show info button click event.
+     *
+     * @param event The action event triggered by clicking the button.
+     */
     @FXML
     private void onShowInfo(ActionEvent event) {
         System.out.println(">>> productId: " + productId);
     }
 
+    /**
+     * Sets the contribution amount.
+     *
+     * @param contribution The contribution amount.
+     */
     public void setContribution(int contribution) {
         this.contribution = contribution;
     }
 
+    /**
+     * Hides the card.
+     */
     public void hide() {
         parent.setVisible(false);
         parent.setManaged(false);
     }
 
+    /**
+     * Sets the decrement count function.
+     *
+     * @param function The function to decrement the count.
+     */
     public void setDecrementCount(Runnable function) {
         decrementCount = function;
     }
