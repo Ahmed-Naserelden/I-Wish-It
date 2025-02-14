@@ -1,8 +1,9 @@
 package client;
 
+import connection.ContributionPayload;
 import connection.FriendActionPayload;
-import connection.RechargePayload;
 import connection.NetworkManager;
+import connection.RechargePayload;
 import connection.Request;
 import connection.Response;
 import connection.SignInPayload;
@@ -10,7 +11,6 @@ import connection.SignUpPayload;
 import connection.WishlistPayload;
 import java.net.Socket;
 import java.util.ArrayList;
-import connection.ContributionPayload;
 import server.Server;
 import service.*;
 
@@ -196,11 +196,11 @@ public class ClientHandler extends Thread {
     public Response handleWishlist(String method, Object payload) {
         switch (method) {
             case "GET":
-                return WishlistService.getWishlist((int) payload);
+                return WishlistService.get((int) payload);
             case "POST":
-                return WishlistService.addToWishlist((WishlistPayload) payload);
+                return WishlistService.add((WishlistPayload) payload);
             case "DELETE":
-                return WishlistService.deleteFromWishlist((WishlistPayload) payload);
+                return WishlistService.delete((WishlistPayload) payload);
             default:
                 Server.logFail("Invalid method for wishlist.");
                 return new Response(false);
@@ -278,9 +278,9 @@ public class ClientHandler extends Thread {
     public Response handleNotification(String method, Object payload) {
         switch (method) {
             case "GET":
-                return NotificationService.getNotifications((int) payload);
+                return NotificationService.get((int) payload);
             case "DELETE":
-                return NotificationService.deleteNotification((int) payload);
+                return NotificationService.delete((int) payload);
             default:
                 Server.logFail("Invalid method for notifications.");
                 return new Response(false);

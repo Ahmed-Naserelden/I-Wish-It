@@ -24,57 +24,23 @@ public class FriendService {
     }
 
     /**
-     * Sends a friend request from one member to another.
-     *
-     * @param memberId The ID of the member sending the request.
-     * @param friendId The ID of the member receiving the request.
-     * @return A Response object containing the status of the friend request.
-     */
-    public static Response sendFriendRequest(int memberId, int friendId) {
-        boolean status = FriendRepository.sendFriendRequest(memberId, friendId);
-        return new Response(status);
-    }
-
-    /**
-     * Accepts a friend request between two members.
-     *
-     * @param memberId The ID of the member accepting the request.
-     * @param friendId The ID of the member whose request is being accepted.
-     * @return A Response object containing the status of the acceptance.
-     */
-    public static Response acceptFriendRequest(int memberId, int friendId) {
-        boolean status = FriendRepository.acceptFriendRequest(memberId, friendId);
-        return new Response(status);
-    }
-
-    /**
-     * Declines a friend request between two members.
-     *
-     * @param memberId The ID of the member declining the request.
-     * @param friendId The ID of the member whose request is being declined.
-     * @return A Response object containing the status of the decline.
-     */
-    public static Response declineFriendRequest(int memberId, int friendId) {
-        boolean status = FriendRepository.declineFriendRequest(memberId, friendId);
-        return new Response(status);
-    }
-
-    /**
      * Removes a friend relationship between two members.
      *
-     * @param memberId The ID of the member removing the friend.
-     * @param friendId The ID of the friend being removed.
+     * @param payload The FriendActionPayload object containing the member ID and friend ID.
      * @return A Response object containing the status of the removal.
      */
-    public static Response removeFriend(int memberId, int friendId) {
-        boolean status = FriendRepository.removeFriend(memberId, friendId);
+    public static Response removeFriend(FriendActionPayload payload) {
+        boolean status = FriendRepository.removeFriend(
+                payload.getMemberId(),
+                payload.getFriendId()
+        );
         return new Response(status);
     }
 
     /**
-     * Sends a friend request from one member to another using email.
+     * Sends a friend request from one member to another.
      *
-     * @param payload The payload containing member ID and friend email.
+     * @param payload The FriendActionPayload object containing the member ID and friend email.
      * @return A Response object containing the status of the friend request.
      */
     public static Response sendFriendRequest(FriendActionPayload payload) {
@@ -100,9 +66,9 @@ public class FriendService {
     }
 
     /**
-     * Accepts a friend request between two members using payload.
+     * Accepts a friend request between two members.
      *
-     * @param payload The payload containing member ID and friend ID.
+     * @param payload The FriendActionPayload object containing the member ID and friend ID.
      * @return A Response object containing the status of the acceptance.
      */
     public static Response acceptFriendRequest(FriendActionPayload payload) {
@@ -114,9 +80,9 @@ public class FriendService {
     }
 
     /**
-     * Declines a friend request between two members using payload.
+     * Declines a friend request between two members.
      *
-     * @param payload The payload containing member ID and friend ID.
+     * @param payload The FriendActionPayload object containing the member ID and friend ID.
      * @return A Response object containing the status of the decline.
      */
     public static Response declineFriendRequest(FriendActionPayload payload) {

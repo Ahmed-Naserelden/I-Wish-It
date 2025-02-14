@@ -2,6 +2,8 @@ package service;
 
 import connection.ProductPayload;
 import connection.Response;
+import connection.WishlistPayload;
+import dal.TransactionRepository;
 import dal.WishlistRepository;
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ public class WishlistService {
      * @param memberId The ID of the member.
      * @return A Response object containing the list of products in the wishlist.
      */
-    public static Response getWishlist(int memberId) {
+    public static Response get(int memberId) {
         ArrayList<ProductPayload> products = WishlistRepository.get(memberId);
         return new Response(true, products);
     }
@@ -25,36 +27,35 @@ public class WishlistService {
     /**
      * Adds a product to the wishlist for a given member.
      *
-     * @param memberId The ID of the member.
-     * @param productId The ID of the product to add.
+     * @param payload The WishlistPayload object containing the member ID and product ID.
      * @return A Response object containing the status of the addition.
      */
-    public static Response addToWishlist(int memberId, int productId) {
-        boolean status = WishlistRepository.add(memberId, productId);
+    public static Response add(WishlistPayload payload) {
+        boolean status = WishlistRepository.add(
+                payload.getMemberId(),
+                payload.getProductId()
+        );
         return new Response(status);
     }
 
     /**
      * Deletes a product from the wishlist for a given member.
+     * Refunds contributors if the product is not fully funded.
      *
-     * @param memberId The ID of the member.
-     * @param productId The ID of the product to delete.
+     * @param payload The WishlistPayload object containing the member ID and product ID.
      * @return A Response object containing the status of the deletion.
      */
-    public static Response deleteFromWishlist(int memberId, int productId) {
-        boolean status = WishlistRepository.delete(memberId, productId);
-        return new Response(status);
-    }
-
-    /**
-     * Retrieves the remaining amount needed for a product in the wishlist for a given member.
-     *
-     * @param memberId The ID of the member.
-     * @param productId The ID of the product.
-     * @return A Response object containing the remaining amount needed for the product.
-     */
-    public static Response getRemainingAmount(int memberId, int productId) {
+    public static Response delete(WishlistPayload payload) {
+        int memberId = payload.getMemberId();
+        int productId = payload.getProductId();
         int remaining = WishlistRepository.getRemaining(memberId, productId);
-        return new Response(remaining != -1, remaining);
+
+        if (remaining > 0) {
+            TransactionRepository.refund_contributors(memberId, productId);
+        } else {
+            // full-funded; do nothing!
+        }
+
+        return new Response(WishlistRepository.delete(memberId, productId));
     }
 }

@@ -13,18 +13,6 @@ import dal.WishlistRepository;
 public class TransactionService {
 
     /**
-     * Updates the balance of a member by a specified amount.
-     *
-     * @param memberId The ID of the member.
-     * @param amount The amount to update the balance by.
-     * @return A Response object containing the status of the balance update.
-     */
-    public static Response updateBalance(int memberId, int amount) {
-        boolean status = TransactionRepository.updateBalance(memberId, amount);
-        return new Response(status);
-    }
-
-    /**
      * Retrieves the balance of a member.
      *
      * @param memberId The ID of the member.
@@ -33,32 +21,6 @@ public class TransactionService {
     public static Response getBalance(int memberId) {
         int balance = TransactionRepository.getBalance(memberId);
         return new Response(balance != -1, balance);
-    }
-
-    /**
-     * Contributes an amount from one member to another member's product.
-     *
-     * @param fromMemberId The ID of the member making the contribution.
-     * @param toMemberId The ID of the member receiving the contribution.
-     * @param productId The ID of the product being contributed to.
-     * @param amount The amount of the contribution.
-     * @return A Response object containing the status of the contribution.
-     */
-    public static Response contribute(int fromMemberId, int toMemberId, int productId, int amount) {
-        boolean status = TransactionRepository.contribute(fromMemberId, toMemberId, productId, amount);
-        return new Response(status);
-    }
-
-    /**
-     * Refunds contributors for a specific product.
-     *
-     * @param toMemberId The ID of the member receiving the refund.
-     * @param productId The ID of the product being refunded.
-     * @return A Response object containing the status of the refund.
-     */
-    public static Response refundContributors(int toMemberId, int productId) {
-        TransactionRepository.refund_contributors(toMemberId, productId);
-        return new Response(true);
     }
 
     /**
