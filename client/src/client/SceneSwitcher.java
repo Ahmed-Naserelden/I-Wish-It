@@ -14,6 +14,10 @@ import java.io.IOException;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Priority;
 
+/**
+ * SceneSwitcher class to manage scene transitions in the application.
+ * Handles loading and switching between different FXML scenes.
+ */
 public class SceneSwitcher {
 
     private static Stage stage;
@@ -22,6 +26,12 @@ public class SceneSwitcher {
     private static Object controller;
     private static String current;
 
+    /**
+     * Sets the primary stage for the application.
+     * Initializes the main scene and sets up key event handling.
+     *
+     * @param stage The primary stage for this application.
+     */
     public static void setPrimaryStage(Stage stage) {
         SceneSwitcher.stage = stage;
         SceneSwitcher.stage.setTitle("iWishIt Application - v0.1.0");
@@ -42,6 +52,12 @@ public class SceneSwitcher {
         });
     }
 
+    /**
+     * Switches to a different scene specified by the FXML file.
+     * Loads the FXML file, sets the controller, and updates the scene.
+     *
+     * @param fxmlFile The path to the FXML file to load.
+     */
     public static void switchScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlFile));
@@ -69,10 +85,20 @@ public class SceneSwitcher {
         }
     }
 
+    /**
+     * Retrieves the current controller.
+     *
+     * @return The current controller object.
+     */
     public static Object getController() {
         return controller;
     }
 
+    /**
+     * Retrieves the current scene.
+     *
+     * @return The current Scene object.
+     */
     public static Scene getScene() {
         return scene;
     }
