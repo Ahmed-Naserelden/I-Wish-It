@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="938.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-radius: 50;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendCardController">
+<AnchorPane fx:id="parent" maxWidth="1.7976931348623157E308" prefHeight="80.0" prefWidth="938.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-border-radius: 50;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendCardController">
    <children>
       <Label fx:id="memberName" layoutX="88.0" layoutY="15.0" prefHeight="32.0" prefWidth="618.0" text="{FRIENDNAME}" wrapText="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="15.0">
          <font>

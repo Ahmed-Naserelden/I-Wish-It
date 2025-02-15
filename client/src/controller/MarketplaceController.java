@@ -44,13 +44,13 @@ public class MarketplaceController extends MainController implements Initializab
 
         // Send request to get the wishlist items for the current member
         NetworkManager.send(new Request("GET", "/api/wishlist", DataStore.getMember().getId()));
-        Response wishlistReponse = NetworkManager.receive();
+        Response wishlistResponse = NetworkManager.receive();
 
         // Map to store wishlist products and their contributions
         Map<Integer, Integer> wishlistProducts = new HashMap<>();
 
         // Populate the wishlist products map from the response payload
-        for (ProductPayload item : (ArrayList<ProductPayload>) wishlistReponse.getPayload()) {
+        for (ProductPayload item : (ArrayList<ProductPayload>) wishlistResponse.getPayload()) {
             wishlistProducts.put(item.getProductID(), item.getContribution());
         }
 

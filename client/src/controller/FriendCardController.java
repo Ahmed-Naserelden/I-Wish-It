@@ -21,11 +21,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 /**
- * Controller class for the friend card view.
- * Handles the display and actions for individual friend cards.
+ * Controller class for the friend card view. Handles the display and actions
+ * for individual friend cards.
  */
 public class FriendCardController implements Initializable {
 
+    @FXML
+    private AnchorPane parent; // Parent container for the card
     @FXML
     private Label memberName; // Label for displaying the friend's name
     @FXML
@@ -41,11 +43,13 @@ public class FriendCardController implements Initializable {
     private String cardType; // Type of the card (e.g., FRIEND, REQUEST)
 
     /**
-     * Initializes the controller class.
-     * This method is automatically called after the FXML file has been loaded.
+     * Initializes the controller class. This method is automatically called
+     * after the FXML file has been loaded.
      *
-     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     * @param url The location used to resolve relative paths for the root
+     * object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the
+     * root object was not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,7 +77,8 @@ public class FriendCardController implements Initializable {
     /**
      * Sets the friend data and updates the UI with the friend's information.
      *
-     * @param friend The FriendPayload object containing the friend's information.
+     * @param friend The FriendPayload object containing the friend's
+     * information.
      */
     public void setFriendData(FriendPayload friend) {
         friendId = friend.getId();
@@ -92,8 +97,8 @@ public class FriendCardController implements Initializable {
     }
 
     /**
-     * Handles the event when the "Show Profile" button is clicked.
-     * Performs actions based on the card type (e.g., view profile, accept request).
+     * Handles the event when the "Show Profile" button is clicked. Performs
+     * actions based on the card type (e.g., view profile, accept request).
      *
      * @param event The action event triggered by clicking the button.
      */
@@ -135,8 +140,8 @@ public class FriendCardController implements Initializable {
     }
 
     /**
-     * Handles the event when the action button is clicked.
-     * Performs actions based on the card type (e.g., remove friend, decline request).
+     * Handles the event when the action button is clicked. Performs actions
+     * based on the card type (e.g., remove friend, decline request).
      *
      * @param event The action event triggered by clicking the button.
      */
@@ -157,7 +162,7 @@ public class FriendCardController implements Initializable {
                             "Sadly, a friend has been removed successfully!",
                             Alert.AlertType.INFORMATION
                     );
-                    SceneSwitcher.switchScene("/scene/Friends.fxml");
+                    hide();
                 } else {
                     MainController.showAlert(
                             "Failed",
@@ -179,7 +184,7 @@ public class FriendCardController implements Initializable {
                             "Sadly, you've declined a friend request!",
                             Alert.AlertType.INFORMATION
                     );
-                    SceneSwitcher.switchScene("/scene/FriendRequests.fxml");
+                    hide();
                 } else {
                     MainController.showAlert(
                             "Failed",
@@ -189,5 +194,13 @@ public class FriendCardController implements Initializable {
                 }
                 break;
         }
+    }
+
+    /**
+     * Hides the card.
+     */
+    public void hide() {
+        parent.setVisible(false);
+        parent.setManaged(false);
     }
 }

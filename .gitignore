@@ -1,0 +1,30 @@
+.DS_Store
+# NetBeans specific #
+nbproject/private/
+build/
+dist/
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Untrack files
+client/nbproject/private/configs/Run_in_Browser.properties
+client/nbproject/private/configs/Run_as_WebStart.properties
+client/nbproject/private/retriever/catalog.xml
+client/nbproject/private/private.properties
+client/nbproject/private/private.xml
+server/nbproject/private/config.properties
+server/nbproject/private/private.xml
+server/nbproject/private/private.properties
+
+# Database
+database/derby.log
+database/derby.properties
+database/products.sql
+database/dbn45contacts/
+/client/nbproject/private/
+/server/nbproject/private/
+
+!cdn/.touch
+cdn/

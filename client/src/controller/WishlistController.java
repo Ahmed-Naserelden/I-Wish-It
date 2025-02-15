@@ -69,6 +69,7 @@ public class WishlistController extends MainController implements Initializable 
                 Parent card = loader.load();
                 WishlistCardController controller = loader.getController();
                 controller.setDecrementCount(this::decrementCount);
+                controller.setRefreshBalance(this::refreshBalance);
                 controller.setProductData(product);
                 controller.setCardType(cardType);
                 cardContainer.getChildren().add(card);

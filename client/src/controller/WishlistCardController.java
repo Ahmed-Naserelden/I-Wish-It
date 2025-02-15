@@ -23,12 +23,13 @@ import connection.ContributionPayload;
 import connection.ProductPayload;
 
 /**
- * Controller class for the wishlist card view.
- * Handles the display and actions for individual wishlist cards.
+ * Controller class for the wishlist card view. Handles the display and actions
+ * for individual wishlist cards.
  */
 public class WishlistCardController implements Initializable {
 
     Runnable decrementCount;
+    Runnable refreshBalance;
 
     @FXML
     private AnchorPane parent; // Parent container for the card
@@ -55,11 +56,13 @@ public class WishlistCardController implements Initializable {
     private String cardType; // Type of the card (e.g., WISH, SKIP, SANTA)
 
     /**
-     * Initializes the controller class.
-     * This method is automatically called after the FXML file has been loaded.
+     * Initializes the controller class. This method is automatically called
+     * after the FXML file has been loaded.
      *
-     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     * @param url The location used to resolve relative paths for the root
+     * object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the
+     * root object was not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,7 +131,8 @@ public class WishlistCardController implements Initializable {
     /**
      * Sets the product data and updates the UI with the product's information.
      *
-     * @param product The ProductPayload object containing the product's information.
+     * @param product The ProductPayload object containing the product's
+     * information.
      */
     public void setProductData(ProductPayload product) {
         productId = product.getProductID();
@@ -150,7 +154,7 @@ public class WishlistCardController implements Initializable {
         Response response = NetworkManager.receive();
         if (response.isPassed()) {
             setCardType("WISH");
-            ((MainController) SceneSwitcher.getController()).refreshBalance();
+            refreshBalance.run();
         } else {
             MainController.showAlert(
                     "Failed",
@@ -170,7 +174,7 @@ public class WishlistCardController implements Initializable {
         if (response.isPassed()) {
             contribution = 0;
             setCardType("SKIP");
-            ((MainController) SceneSwitcher.getController()).refreshBalance();
+            refreshBalance.run();
             if (!DataStore.isInsideMarketPlace()) {
                 decrementCount.run();
                 hide();
@@ -194,9 +198,8 @@ public class WishlistCardController implements Initializable {
         NetworkManager.send(request);
         Response response = NetworkManager.receive();
         if (response.isPassed()) {
-            ((MainController) SceneSwitcher.getController()).refreshBalance();
+            refreshBalance.run();
             contribution += (int) response.getPayload();
-            updateContribution();
         } else {
             MainController.showAlert("Failed",
                     (String) response.getPayload(),
@@ -262,5 +265,14 @@ public class WishlistCardController implements Initializable {
      */
     public void setDecrementCount(Runnable function) {
         decrementCount = function;
+    }
+
+    /**
+     * Sets the refresh balance function.
+     *
+     * @param function The function to refresh the balance.
+     */
+    public void setRefreshBalance(Runnable function) {
+        refreshBalance = function;
     }
 }

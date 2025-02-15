@@ -95,7 +95,6 @@ public class FriendsController extends MainController implements Initializable {
                 Alert.AlertType.INFORMATION
             );
             friendEmail.clear();
-            SceneSwitcher.switchScene("/scene/Friends.fxml");
         } else {
             MainController.showAlert(
                 "Failed",

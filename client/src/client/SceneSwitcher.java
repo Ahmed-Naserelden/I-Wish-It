@@ -84,22 +84,4 @@ public class SceneSwitcher {
             Client.logFail(e.toString());
         }
     }
-
-    /**
-     * Retrieves the current controller.
-     *
-     * @return The current controller object.
-     */
-    public static Object getController() {
-        return controller;
-    }
-
-    /**
-     * Retrieves the current scene.
-     *
-     * @return The current Scene object.
-     */
-    public static Scene getScene() {
-        return scene;
-    }
 }
