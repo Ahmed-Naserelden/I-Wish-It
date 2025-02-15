@@ -31,7 +31,7 @@ public class Server {
      */
     public static void start() {
         Socket socket;
-
+        
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             Server.logPass("Server started.");
             Server.logInfo("Waiting for clients...");

@@ -234,6 +234,7 @@ public class WishlistCardController implements Initializable {
      */
     @FXML
     private void onShowInfo(ActionEvent event) {
+        SceneSwitcher.switchScene("/scene/ProductInfo.fxml");
         System.out.println(">>> productId: " + productId);
     }
 
