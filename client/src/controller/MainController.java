@@ -41,7 +41,6 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(DataStore.getMember().getUsername());
         profileName.setText(DataStore.getMember().getUsername());
         refreshBalance();
         if (DataStore.getMemberImage() != null) {

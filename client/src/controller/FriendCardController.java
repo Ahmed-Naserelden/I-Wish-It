@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
 /**
@@ -41,6 +42,8 @@ public class FriendCardController implements Initializable {
 
     private int friendId; // ID of the friend
     private String cardType; // Type of the card (e.g., FRIEND, REQUEST)
+    private Runnable decrementCount;
+    
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -122,12 +125,8 @@ public class FriendCardController implements Initializable {
                 );
                 Response response = NetworkManager.receive();
                 if (response.isPassed()) {
-                    MainController.showAlert(
-                            "Success",
-                            "You've accepted a friend request!",
-                            Alert.AlertType.INFORMATION
-                    );
-                    SceneSwitcher.switchScene("/scene/FriendRequests.fxml");
+                    decrementCount.run();
+                    hide();
                 } else {
                     MainController.showAlert(
                             "Failed",
@@ -149,7 +148,7 @@ public class FriendCardController implements Initializable {
     private void onActionClicked(ActionEvent event) {
         Response response;
         switch (cardType) {
-            case "FRIEND":
+            case "FRIEND": //delete
                 NetworkManager.send(
                         new Request("DELETE", "/api/friends",
                                 new FriendActionPayload(DataStore.getMember().getId(), friendId)
@@ -157,11 +156,7 @@ public class FriendCardController implements Initializable {
                 );
                 response = NetworkManager.receive();
                 if (response.isPassed()) {
-                    MainController.showAlert(
-                            "Success",
-                            "Sadly, a friend has been removed successfully!",
-                            Alert.AlertType.INFORMATION
-                    );
+                    decrementCount.run();
                     hide();
                 } else {
                     MainController.showAlert(
@@ -179,11 +174,7 @@ public class FriendCardController implements Initializable {
                 );
                 response = NetworkManager.receive();
                 if (response.isPassed()) {
-                    MainController.showAlert(
-                            "Success",
-                            "Sadly, you've declined a friend request!",
-                            Alert.AlertType.INFORMATION
-                    );
+                    decrementCount.run();
                     hide();
                 } else {
                     MainController.showAlert(
@@ -202,5 +193,10 @@ public class FriendCardController implements Initializable {
     public void hide() {
         parent.setVisible(false);
         parent.setManaged(false);
+    }
+    
+    public void setDecrementCount(Runnable function)
+    {
+        decrementCount = function;
     }
 }

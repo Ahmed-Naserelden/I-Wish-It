@@ -34,6 +34,8 @@ public class FriendsController extends MainController implements Initializable {
     private Label itemsCount; // Label for displaying the count of friends
     @FXML
     private TextField friendEmail; // TextField for entering a friend's email
+    
+    private int count;
 
     /**
      * Initializes the controller class.
@@ -52,7 +54,7 @@ public class FriendsController extends MainController implements Initializable {
         ArrayList<FriendPayload> friends = (ArrayList<FriendPayload>) response.getPayload();
 
         // Update the items count label with the number of friends
-        itemsCount.setText("You have (" + friends.size() + ") friends:");
+        setCount(friends.size());
 
         try {
             // Load and display each friend card
@@ -62,6 +64,7 @@ public class FriendsController extends MainController implements Initializable {
                 );
                 Parent card = loader.load();
                 FriendCardController controller = loader.getController();
+                controller.setDecrementCount(this::decrementCount);
                 controller.setFriendData(friend);
                 controller.setCardType("FRIEND");
                 cardContainer.getChildren().add(card);
@@ -102,5 +105,21 @@ public class FriendsController extends MainController implements Initializable {
                 Alert.AlertType.ERROR
             );
         }
+    }
+        /**
+     * Sets the count of friends and updates the friend text label.
+     *
+     * @param new_count The new count of wishlist items.
+     */
+    private void setCount(int new_count) {
+        count = new_count;
+        itemsCount.setText("You have (" + count + ") friend:");
+    }
+
+    /**
+     * Decrements the count of friends by one.
+     */
+    public void decrementCount() {
+        setCount(count - 1);
     }
 }

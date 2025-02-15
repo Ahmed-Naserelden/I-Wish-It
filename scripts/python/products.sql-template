@@ -1,0 +1,6 @@
+CONNECT 'jdbc:derby://localhost:1527/dbn45contacts;create=true;user=root;password=root';
+
+INSERT INTO
+    PRODUCT ("ID", "NAME", "BRAND", "INFO", "PRICE", "IMAGE")
+VALUES
+##PRODUCT_VALUES##;

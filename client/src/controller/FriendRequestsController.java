@@ -33,7 +33,9 @@ public class FriendRequestsController extends MainController implements Initiali
     private VBox cardContainer; // Container for displaying friend request cards
     @FXML
     private Label itemsCount; // Label for displaying the count of friend requests
-
+    
+    private int count;
+    
     /**
      * Initializes the controller class.
      * This method is automatically called after the FXML file has been loaded.
@@ -51,7 +53,7 @@ public class FriendRequestsController extends MainController implements Initiali
         ArrayList<FriendPayload> friends = (ArrayList<FriendPayload>) response.getPayload();
 
         // Update the items count label with the number of friend requests
-        itemsCount.setText("You have (" + friends.size() + ") friend requests:");
+        setCount(friends.size());
 
         try {
             // Load and display each friend request card
@@ -61,6 +63,7 @@ public class FriendRequestsController extends MainController implements Initiali
                 );
                 Parent card = loader.load();
                 FriendCardController controller = loader.getController();
+                controller.setDecrementCount(this::decrementCount);
                 controller.setFriendData(friend);
                 controller.setCardType("REQUEST");
                 cardContainer.getChildren().add(card);
@@ -68,5 +71,23 @@ public class FriendRequestsController extends MainController implements Initiali
         } catch (IOException e) {
             Client.logFail(e.getMessage());
         }
+    }
+    
+    
+    /**
+     * Sets the count of friendsRequest and updates the friend text label.
+     *
+     * @param new_count The new count of wishlist items.
+     */
+    private void setCount(int new_count) {
+        count = new_count;
+        itemsCount.setText("You have (" + count + ") friend requests:");
+    }
+
+    /**
+     * Decrements the count of friendRequests by one.
+     */
+    public void decrementCount() {
+        setCount(count - 1);
     }
 }
